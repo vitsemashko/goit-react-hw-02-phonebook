@@ -76,7 +76,7 @@ class App extends Component {
     });
   };
   render() {
-    const normalizedFilter = this.state.filter;
+    const normalizedFilter = this.state.filter.toLowerCase();
     const visibleContacts = this.state.contacts.filter(contact => {
       return contact.name.toLowerCase().includes(normalizedFilter);
     });
