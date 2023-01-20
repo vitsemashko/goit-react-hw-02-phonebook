@@ -31,7 +31,7 @@ class App extends Component {
     if (this.state.contacts.find(this.onFilterName)) {
       alert('This person is already in your contacts');
     } else {
-      this.setState(this.addContactToState());
+      this.addContactToState();
       this.reset();
     }
   };
