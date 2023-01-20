@@ -22,33 +22,16 @@ class App extends Component {
     this.setState({ [name]: value });
   };
   onFilterName = contact => {
-    return contact.name === this.state.name;
-  };
-  onFilterNumber = contact => {
-    return contact.number === this.state.number;
+    return contact.name.toLowerCase() === this.state.name.toLowerCase();
   };
   reset = () => {
     this.setState({ name: '', number: '' });
   };
   onNameChecking = () => {
     if (this.state.contacts.find(this.onFilterName)) {
-      console.log('name exist');
-      this.reset();
+      alert('This person is already in your contacts');
     } else {
-      console.log('name new');
       this.setState(this.addContactToState());
-      alert('This is a new person. Add to contacts list');
-      this.reset();
-    }
-  };
-  onNumberChecking = () => {
-    if (this.state.contacts.find(this.onFilterNumber)) {
-      console.log('num exist');
-      this.reset();
-    } else {
-      console.log('num new');
-      this.setState(this.addContactToState());
-      alert('This is a new person. Add to contacts list');
       this.reset();
     }
   };
@@ -59,13 +42,15 @@ class App extends Component {
     const number = form.elements.number.value;
     this.setState({ name, number });
     this.onNameChecking();
-    this.onNumberChecking();
   };
   addContactToState = () => {
-    this.state.contacts.push({
-      id: nanoid(),
-      name: this.state.name,
-      number: this.state.number,
+    this.setState(prev => {
+      return {
+        contacts: [
+          ...prev.contacts,
+          { name: this.state.name, number: this.state.number, id: nanoid() },
+        ],
+      };
     });
   };
   onDeleteItem = id => {
